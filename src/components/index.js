@@ -9,19 +9,21 @@ import Home from '../pages/Home';
 class App extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         authed: "Andres"
-      }
+      this.state = { authed: 0 };
+
+      //this.frenchify = this.frenchify.bind(this);
    }
 
    componentDidMount() {
-      /*componentWillMount = () => {
-      this.setState = ({ auth: 1 });
+      this.ajaxInicial();
+   }
 
-      //console.log(this.state.auth);
-      }*/
+      frenchify() {
+         this.setState({ greeting: 'Bonjour' });
+      }
 
-      /*pruebaAjax = () => {
+      ajaxInicial() {
+         var self = this;
          $.ajax({
             url: 'http://192.168.100.54:7354/desarrollo/amosquera/home/pruebas/WEBLIFE/progress.php',
             cache: false,
@@ -29,30 +31,17 @@ class App extends Component {
             data: { id : 1, user: "amosquera", pass: "Olvido2017%" },
             success: function(data) {
                console.log("ya enviado");
-               //console.log(data);
-               this.setState = ({
-                  authed: 1
-               });
+               console.log(data);
+               self.setState({
+                  authed: data
+               })
+               //this.setState({ greeting: 'Bonjour' });
             },
             error: function(xhr, status, err) {
                console.log(xhr.status);
             }
          })
-
-         this.setState = ({
-            authed: 1
-         });
-      }*/
-   }
-
-   
-
-   pruebaAjaxDos = () => {
-      this.setState = ({
-         authed: "Julian"
-      });
-      console.log(this.state.authed);
-   }
+      }
 
    render() {
       return (
@@ -63,8 +52,8 @@ class App extends Component {
                      <div className="container-fluid">
                         <div id="navbar" className="navbar-collapse collapse">
                            <ul className="nav navbar-nav">
-                              <li><Link className="active" to="/home">Home { this.state.authed } </Link></li>
-                              <li onClick={ this.pruebaAjaxDos }><Link to="/add">Agregar</Link></li>
+                              <li><Link className="active" to="/home">Home{ this.state.authed }</Link></li>
+                              <li><Link to="/add">Agregar</Link></li>
                               <li><Link to="/edit">Editar</Link></li>
                               <li><Link to="/delete">Eliminar</Link></li>
                            </ul>
@@ -77,7 +66,6 @@ class App extends Component {
 
                   <Switch>
                      <Route path='/home' component={ Home } />
-
                   </Switch>
                </div>
             </div>
