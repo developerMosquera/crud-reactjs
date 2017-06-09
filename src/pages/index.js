@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, BrowserRouter, Link, Switch } from 'react-router-dom'
+import { Route, BrowserRouter, Link, Switch, Redirect } from 'react-router-dom'
 import $ from 'jquery';
 
 import './css/index.css';
@@ -7,20 +7,38 @@ import './css/index.css';
 //import Login from './Login';
 import Home from './Home';
 
+/*** import components ***/
+
+
 class App extends Component {
    constructor(props) {
       super(props);
-      this.state = { authed: 0 };
+      this.state = { authed: false };
 
       //this.frenchify = this.frenchify.bind(this);
-      //this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
    }
 
    componentDidMount() {
-      this.ajaxInicial();
+      //this.ajaxInicial();
+
+      var tokenID = "123456789";
+      var tokenIDStore = localStorage.getItem("tokenID");
+
+      if(tokenID == tokenIDStore)
+      {
+         console.log(localStorage.getItem("tokenID"));
+         console.log(localStorage.getItem("nameSession"));
+         this.setState({
+            authed: true
+         });
+      } else {
+         console.log("ALgo esta mal");
+      }
+
    }
 
-   ajaxInicial() {
+   /*ajaxInicial() {
       var self = this;
       $.ajax({
          url: 'http://192.168.100.54:7354/desarrollo/amosquera/home/pruebas/WEBLIFE/progress.php',
@@ -30,28 +48,35 @@ class App extends Component {
          success: function(data) {
             console.log("ya enviado");
             console.log(data);
-            /*self.setState({
+            self.setState({
                authed: data
-            })*/
+            })
             //this.setState({ greeting: 'Bonjour' });
          },
          error: function(xhr, status, err) {
             console.log(xhr.status);
          }
       })
-   }
+   }*/
 
    handleSubmit(e) {
       e.preventDefault();
-      /*console.log(e.target.elements.user.value);
+      console.log(e.target.elements.user.value);
       console.log(e.target.elements.pass.value);
+      if(e.target.elements.pass.value == 123456789)
+      {
+         localStorage.setItem("tokenID", 123456789);
+         localStorage.setItem("nameSession", e.target.elements.user.value);
 
-      console.log(this.state.authed);*/
-   }
+         this.setState({
+            authed: true
+         });
+      } else {
+         localStorage.setItem("nameSession", null);
+         localStorage.setItem("tokenID", null);
+      }
 
-   logout(e) {
-      e.preventDefault();
-      console.log("Desde logout");
+      console.log(localStorage.getItem("tokenID"));
    }
 
    render() {
@@ -62,6 +87,7 @@ class App extends Component {
             <div className="container">
                <nav className="navbar navbar-default nav-app">
                   <div className="container-fluid">
+
                   </div>
                </nav>
 
@@ -73,7 +99,7 @@ class App extends Component {
                            <h1 className="panel-title">Inicio de sesión</h1>
                         </div>
                         <div className="panel-body">
-                           <form>
+                           <form onSubmit={ this.handleSubmit }>
                               <div className="form-group">
                                  <label>Usuario</label>
                                  <input type="text" className="form-control" name="user" placeholder="Usuario" />
@@ -82,7 +108,7 @@ class App extends Component {
                                  <label>Contraseña</label>
                                  <input type="password" className="form-control" name="pass" placeholder="Contraseña" />
                               </div>
-                              <button type="button" onClick={this.logout.bind(this)} className="btn btn-success">Submit</button>
+                              <button type="submit" className="btn btn-success">Submit</button>
                            </form>
                         </div>
                      </div>
@@ -92,6 +118,10 @@ class App extends Component {
          </div>
 
       );
+
+      function mipez() {
+         return <div>Mi pez</div>
+      }
 
       const Nav = (
 
@@ -118,11 +148,12 @@ class App extends Component {
                      <Route path='/home' component={ Home } />
                   </Switch>
                </div>
+
             </div>
          </BrowserRouter>
       );
 
-      return this.state.authed === 0 ? Login : Nav
+      return this.state.authed === false ? Login : Nav
    }
 }
 
