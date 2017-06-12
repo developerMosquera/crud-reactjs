@@ -145,6 +145,7 @@ class App extends Component {
                   </nav>
 
                   <Switch>
+                     <Route path='/' component={ Home } />
                      <Route path='/home' component={ Home } />
                   </Switch>
                </div>
