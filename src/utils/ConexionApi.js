@@ -6,4 +6,13 @@ function getSessionStorage(key) {
    return sessionStorage.getItem(key);
 }
 
-export { setSessionStorage, getSessionStorage };
+function validateSessionToKen(ToKen) {
+   if(ToKen === getSessionStorage('ToKen'))
+   {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+export { setSessionStorage, getSessionStorage, validateSessionToKen };

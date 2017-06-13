@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { setSessionStorage, getSessionStorage, validateSessionToKen } from '../../utils/ConexionApi';
+
 class loginForm extends Component {
    constructor(props) {
       super(props);
@@ -9,7 +11,8 @@ class loginForm extends Component {
 
    handleSubmit(e) {
       e.preventDefault();
-      console.log(e.target.elements.user.value);
+      setSessionStorage('user', e.target.elements.user.value);
+      setSessionStorage('ToKen', e.target.elements.pass.value);
    }
 
    render() {
