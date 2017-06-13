@@ -15,4 +15,8 @@ function validateSessionToKen(ToKen) {
    }
 }
 
-export { setSessionStorage, getSessionStorage, validateSessionToKen };
+function isLogin(ToKen) {
+   return validateSessionToKen(ToKen);
+}
+
+export { setSessionStorage, getSessionStorage, validateSessionToKen, isLogin };

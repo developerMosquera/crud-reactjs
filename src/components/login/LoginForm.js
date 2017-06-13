@@ -1,45 +1,61 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
-import { setSessionStorage, getSessionStorage, validateSessionToKen } from '../../utils/ConexionApi';
+import { setSessionStorage, getSessionStorage, isLogin } from '../../utils/ConexionApi';
 
 class loginForm extends Component {
    constructor(props) {
       super(props);
 
-      this.handleSubmit = this.handleSubmit.bind();
+      //this.state = { authed: false };
+
+      //this.handleSubmit = this.handleSubmit.bind(this);
    }
 
-   handleSubmit(e) {
+   /*handleSubmit(e) {
       e.preventDefault();
       setSessionStorage('user', e.target.elements.user.value);
       setSessionStorage('ToKen', e.target.elements.pass.value);
+
+      if(isLogin('12345'))
+      {
+         this.setState({
+            authed: true
+         });
+      } else {
+         this.setState({
+            authed: false
+         });
+      }
    }
+
+   renderRedirectLogin() {
+      if(this.state.authed)
+      {
+         return (
+            <div>
+               <Redirect to="/"/>
+            </div>
+         );
+      }
+   }*/
 
    render() {
       return (
-         <div className="row">
-            <div className="col-md-6 col-md-offset-3">
-
-               <div className="panel panel-default">
-                  <div className="panel-heading">
-                     <h1 className="panel-title">Inicio de sesión</h1>
-                  </div>
-                  <div className="panel-body">
-                     <form onSubmit={ this.handleSubmit }>
-                        <div className="form-group">
-                           <label>Usuario</label>
-                           <input type="text" className="form-control" name="user" placeholder="Usuario" />
-                        </div>
-                        <div className="form-group">
-                           <label>Contraseña</label>
-                           <input type="password" className="form-control" name="pass" placeholder="Contraseña" />
-                        </div>
-                        <button type="submit" className="btn btn-success">Submit</button>
-                     </form>
-                  </div>
+            <form onSubmit={ this.props.onSubmit }>
+               <div className="form-group">
+                  <label>Usuario</label>
+                  <input type="text" className="form-control" name="user" placeholder="Usuario" />
                </div>
-            </div>
-         </div>
+               <div className="form-group">
+                  <label>Contraseña</label>
+                  <input type="password" className="form-control" name="pass" placeholder="Contraseña" />
+               </div>
+               <button type="submit" className="btn btn-success">Submit</button>
+            </form>
+
+            //{ this.renderRedirectLogin() }
+
       );
    }
 }
