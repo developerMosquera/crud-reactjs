@@ -17,7 +17,6 @@ class NavActive extends Component {
                      <li><Link to="/add">Agregar</Link></li>
                      <li><Link to="/edit">Editar</Link></li>
                      <li><Link to="/delete">Eliminar</Link></li>
-                     <li><Link to="/delete">Eliminar</Link></li>
                   </ul>
                   <ul className="nav navbar-nav navbar-right">
                      <li className="dropdown">

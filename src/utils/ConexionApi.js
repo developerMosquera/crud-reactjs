@@ -6,8 +6,8 @@ function getSessionStorage(key) {
    return sessionStorage.getItem(key);
 }
 
-function validateSessionToKen(ToKen) {
-   if(ToKen === getSessionStorage('ToKen'))
+function validateSessionToKen(ajaxToKen) {
+   if(getSessionStorage('ToKen') === ajaxToKen)
    {
       return true;
    } else {
@@ -15,8 +15,12 @@ function validateSessionToKen(ToKen) {
    }
 }
 
-function isLogin(ToKen) {
-   return validateSessionToKen(ToKen);
+function isLogin(ajaxToKen) {
+   return validateSessionToKen(ajaxToKen);
 }
 
-export { setSessionStorage, getSessionStorage, validateSessionToKen, isLogin };
+function logOut() {
+   sessionStorage.removeItem('ToKen');
+}
+
+export { setSessionStorage, getSessionStorage, validateSessionToKen, isLogin, logOut };

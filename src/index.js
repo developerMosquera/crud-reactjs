@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-//import { setSessionStorage, getSessionStorage, validateSessionToKen } from './utils/ConexionApi';
-
 /*** Paginas ***/
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Users from './pages/Users';
+import Logout from './pages/Logout';
 
 /*** Componentes ***/
-
-//console.log(validateSessionToKen('12345'));
 
 const Root = () => {
    return (
@@ -21,6 +19,8 @@ const Root = () => {
                <Switch>
                   <Route exact path='/' component={ Home } />
                   <Route path='/login' component={ Login } />
+                  <Route path='/users' component={ Users } />
+                  <Route path='/logout' component={ Logout } />
                </Switch>
             </div>
          </div>

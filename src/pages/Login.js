@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { isLogin } from '../utils/ConexionApi';
+import { setSessionStorage, isLogin } from '../utils/ConexionApi';
 
 import LoginForm from '../components/login/LoginForm';
 import Nav from '../components/Nav/Nav';
@@ -14,10 +14,10 @@ class Login extends Component {
 
       this.state = { authed: false };
 
-      //this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
    }
 
-   /*componentDidMount() {
+   componentDidMount() {
       if(isLogin('12345'))
       {
          this.setState({
@@ -30,8 +30,25 @@ class Login extends Component {
       }
    }
 
+   handleSubmit(e) {
+      e.preventDefault();
+      setSessionStorage('user', e.target.elements.user.value);
+      setSessionStorage('ToKen', e.target.elements.pass.value);
+
+      if(isLogin("12345"))
+      {
+         this.setState({
+            authed: true
+         });
+      } else {
+         this.setState({
+            authed: false
+         });
+      }
+   }
+
    renderRedirectLogin() {
-      if(!this.state.authed)
+      if(this.state.authed === true)
       {
          return (
             <div>
@@ -40,14 +57,9 @@ class Login extends Component {
          );
       } else {
          return (
-            <LoginForm />
+            <LoginForm onSubmit={ this.handleSubmit } />
          );
       }
-   }*/
-
-   handleSubmit(e) {
-      e.preventDefault();
-      console.log("Form login");
    }
 
    render() {
@@ -63,7 +75,7 @@ class Login extends Component {
                         <h1 className="panel-title">Inicio de sesión</h1>
                      </div>
                      <div className="panel-body">
-                        <LoginForm onSubmit={ this.handleSubmit } />
+                        { this.renderRedirectLogin() }
                      </div>
                   </div>
                </div>
