@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Button, Modal, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+
+import { isLogin} from '../utils/ConexionApi';
 
 import Nav from '../components/Nav/Nav';
 
@@ -26,29 +30,66 @@ class Users extends Component {
       super(props);
 
       console.log(usersExample);
+
+      this.state = { showModal: true };
    }
 
-   editUsers(userId) {
-      return (
-         <div className="modal fade" tabindex="-1" role="dialog">
-            <div className="modal-dialog" role="document">
-               <div className="modal-content">
-                  <div className="modal-header">
-                     <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                     <h4 className="modal-title">Modal title</h4>
-                  </div>
-                  <div className="modal-body">
-                     <p>One fine body&hellip;</p>
-                  </div>
-                  <div className="modal-footer">
-                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                     <button type="button" className="btn btn-primary">Save changes</button>
-                  </div>
-               </div>
-            </div>
-         </div>
-      )
+
+   close() {
+      this.setState({ showModal: false });
    }
+
+   open(dataPrueba) {
+      this.setState({ showModal: true });
+   }
+
+   modal(data) {
+
+      console.log(this.state.showModal);
+
+      return (
+         <Modal show={this.state.showModal} onHide={this.close}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>Text in a modal</h4>
+
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      );
+   }
+
+   renderRedirectLogin() {
+      if(!isLogin("12345"))
+      {
+         return (
+            <div>
+               <Redirect to="/"/>
+            </div>
+         );
+      }
+   }
+
+   /*popover() {
+      return (
+         <Popover id="modal-popover" title="popover">
+           very popover. such engagement
+         </Popover>
+      );
+   }
+
+   tooltip() {
+      return (
+         <Tooltip id="modal-tooltip">
+           wow.
+         </Tooltip>
+      );
+   }*/
+
 
    render() {
       return (
@@ -81,6 +122,14 @@ class Users extends Component {
                   }
                </tbody>
             </table>
+
+            <Button bsStyle="primary" bsSize="large" onClick={ () => this.modal(true) } >
+               Launch demo modal
+            </Button>
+
+            
+
+            { this.renderRedirectLogin() }
          </div>
       );
    }
