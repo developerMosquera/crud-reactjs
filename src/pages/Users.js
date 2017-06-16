@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Button, Modal, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
+import $ from 'jquery';
 
 import { isLogin} from '../utils/ConexionApi';
 
@@ -28,39 +28,6 @@ let usersExample = [
 class Users extends Component {
    constructor(props) {
       super(props);
-
-      console.log(usersExample);
-
-      this.state = { showModal: true };
-   }
-
-
-   close() {
-      this.setState({ showModal: false });
-   }
-
-   open(dataPrueba) {
-      this.setState({ showModal: true });
-   }
-
-   modal(data) {
-
-      console.log(this.state.showModal);
-
-      return (
-         <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Text in a modal</h4>
-
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      );
    }
 
    renderRedirectLogin() {
@@ -74,24 +41,8 @@ class Users extends Component {
       }
    }
 
-   /*popover() {
-      return (
-         <Popover id="modal-popover" title="popover">
-           very popover. such engagement
-         </Popover>
-      );
-   }
-
-   tooltip() {
-      return (
-         <Tooltip id="modal-tooltip">
-           wow.
-         </Tooltip>
-      );
-   }*/
-
-
    render() {
+
       return (
          <div>
             <Nav brand="Inicio" />
@@ -123,13 +74,14 @@ class Users extends Component {
                </tbody>
             </table>
 
-            <Button bsStyle="primary" bsSize="large" onClick={ () => this.modal(true) } >
+            <button type="button" className="prueba">
                Launch demo modal
-            </Button>
+            </button>
 
-            
 
-            { this.renderRedirectLogin() }
+            {  /*** Importante Redirect, NO QUITAR ***/
+               this.renderRedirectLogin()
+            }
          </div>
       );
    }
