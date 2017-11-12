@@ -28,7 +28,7 @@ class Add extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'listConceptos'},
@@ -50,7 +50,7 @@ class Add extends Component {
       if(returnValidateForm === true)
       {
          $.ajax({
-            url: 'http://192.168.1.56/api-crud-reactjs/',
+            url: 'http://localhost/api-crud-reactjs/',
             cache: false,
             method: "post",
             data: { CONTROLLER : 'crud', METHOD: 'add', ID_USER: getSessionStorage('userId'), CONCEPTO: e.target.elements.concepto.value, VALOR: e.target.elements.valor.value, FECHA_EJECUCION: e.target.elements.fechaEjecucion.value, DESCRIPCION: e.target.elements.descripcion.value },

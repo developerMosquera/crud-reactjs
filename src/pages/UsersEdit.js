@@ -29,7 +29,7 @@ class UsersEdit extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'users', METHOD: 'list', USER: Base64.decode(this.props.match.params.user), USER_ID: Base64.decode(this.props.match.params.userId) },
@@ -50,7 +50,7 @@ class UsersEdit extends Component {
       if(returnValidateForm === true)
       {
          $.ajax({
-            url: 'http://192.168.1.56/api-crud-reactjs/',
+            url: 'http://localhost/api-crud-reactjs/',
             cache: false,
             method: "post",
             data: { CONTROLLER : 'users', METHOD: 'update', PASS: e.target.elements.pass.value, NOMBRE: e.target.elements.nombre.value, APELLIDO: e.target.elements.apellido.value, CEDULA: e.target.elements.cedula.value, USER_ID: Base64.decode(this.props.match.params.userId), USER: Base64.decode(this.props.match.params.user), TOKEN: getSessionStorage('ToKen') },

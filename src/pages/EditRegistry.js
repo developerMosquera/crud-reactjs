@@ -30,7 +30,7 @@ class EditRegistry extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'listConceptos'},
@@ -44,7 +44,7 @@ class EditRegistry extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'list', USER_ID: getSessionStorage('userId'), ID: Base64.decode(this.props.match.params.id) },
@@ -65,7 +65,7 @@ class EditRegistry extends Component {
       if(returnValidateForm === true)
       {
          $.ajax({
-            url: 'http://192.168.1.56/api-crud-reactjs/',
+            url: 'http://localhost/api-crud-reactjs/',
             cache: false,
             method: "post",
             data: { CONTROLLER : 'crud', METHOD: 'update', USER_ID: getSessionStorage('userId'), ID: Base64.decode(this.props.match.params.id), CONCEPTO: e.target.elements.concepto.value, VALOR: e.target.elements.valor.value, FECHA_EJECUCION: e.target.elements.fechaEjecucion.value, DESCRIPCION: e.target.elements.descripcion.value },

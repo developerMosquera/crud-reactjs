@@ -43,7 +43,7 @@ class UsersAdd extends Component {
       if(returnValidateForm === true)
       {
          $.ajax({
-            url: 'http://192.168.1.56/api-crud-reactjs/',
+            url: 'http://localhost/api-crud-reactjs/',
             cache: false,
             method: "post",
             data: { CONTROLLER : 'users', METHOD: 'add', USER: e.target.elements.usuario.value, PASS: e.target.elements.pass.value, NOMBRE: e.target.elements.nombre.value, APELLIDO: e.target.elements.apellido.value, CEDULA: e.target.elements.cedula.value },

@@ -26,7 +26,7 @@ class Edit extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'list', TYPE_DATA: 2, USER_ID: getSessionStorage('userId') },
@@ -45,14 +45,14 @@ class Edit extends Component {
       var _this = this;
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'editState', ESTADO: $("#" + e.target.id).attr("data-state"), ID: e.target.id }
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'list', TYPE_DATA: 2, USER_ID: getSessionStorage('userId') },

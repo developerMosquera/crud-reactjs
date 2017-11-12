@@ -12,7 +12,7 @@ function isLogin()
 {
    var isLoginPromise = $.Deferred();
    $.ajax({
-      url: 'http://192.168.1.56/api-crud-reactjs/',
+      url: 'http://localhost/api-crud-reactjs/',
       cache: false,
       method: "post",
       data: { CONTROLLER : 'login', METHOD: 'validateSession', TOKEN: getSessionStorage('ToKen'), USER: getSessionStorage('user') },

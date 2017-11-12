@@ -27,7 +27,7 @@ class Users extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'users', METHOD: 'list' },
@@ -45,14 +45,14 @@ class Users extends Component {
       var _this = this;
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'users', METHOD: 'editState', ESTADO: $("#" + e.target.id).attr("data-state"), ID_USER: e.target.id }
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'users', METHOD: 'list' },

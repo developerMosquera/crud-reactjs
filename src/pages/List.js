@@ -25,7 +25,7 @@ class List extends Component {
       });
 
       $.ajax({
-         url: 'http://192.168.1.56/api-crud-reactjs/',
+         url: 'http://localhost/api-crud-reactjs/',
          cache: false,
          method: "post",
          data: { CONTROLLER : 'crud', METHOD: 'list', TYPE_DATA: 1, USER_ID: getSessionStorage('userId') },
