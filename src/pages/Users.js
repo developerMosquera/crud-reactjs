@@ -1,51 +1,83 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
+import { Redirect, Link } from 'react-router-dom';
 
-import { isLogin} from '../utils/ConexionApi';
+import { isLogin } from '../utils/ConexionApi';
+import { Base64 } from '../utils/Utility';
 
 import Nav from '../components/Nav/Nav';
+import HeadTitles from '../components/Headers/HeadTitles';
 
-import './css/Users.css';
-
-let usersExample = [
-   {
-      id: 1,
-      nombre: 'Ingrid Gonzalez',
-      usuario: 'igonzalez',
-      identificacion: 1022972148,
-      estado: 'Activo'
-   },
-   {
-      id: 2,
-      nombre: 'Andres Mosquera',
-      usuario: 'amosquera',
-      identificacion: 1022965455,
-      estado: 'Activo'
-   }
-];
 
 class Users extends Component {
    constructor(props) {
       super(props);
+
+      this.state = { dataListUser: [], redirect: true };
    }
 
-   renderRedirectLogin() {
-      if(!isLogin("12345"))
+   componentDidMount() {
+      var _this = this;
+
+      isLogin()
+      .then(function(data) {
+         _this.setState({
+            redirect: data[0].status
+         });
+      });
+
+      $.ajax({
+         url: 'http://192.168.1.56/api-crud-reactjs/',
+         cache: false,
+         method: "post",
+         data: { CONTROLLER : 'users', METHOD: 'list' },
+         success: function(data) {
+            var result = JSON.parse(data);
+            _this.setState({
+               dataListUser: result
+            })
+         }
+      });
+   }
+
+   handleStateUser(e) {
+      e.preventDefault();
+      var _this = this;
+
+      $.ajax({
+         url: 'http://192.168.1.56/api-crud-reactjs/',
+         cache: false,
+         method: "post",
+         data: { CONTROLLER : 'users', METHOD: 'editState', ESTADO: $("#" + e.target.id).attr("data-state"), ID_USER: e.target.id }
+      });
+
+      $.ajax({
+         url: 'http://192.168.1.56/api-crud-reactjs/',
+         cache: false,
+         method: "post",
+         data: { CONTROLLER : 'users', METHOD: 'list' },
+         success: function(data) {
+            var result = JSON.parse(data);
+            _this.setState({
+               dataListUser: result
+            })
+         }
+      });
+   }
+
+   renderRedirect() {
+      if(this.state.redirect === false)
       {
-         return (
-            <div>
-               <Redirect to="/"/>
-            </div>
-         );
+         return (<div><Redirect to="/" /></div>);
       }
    }
 
    render() {
-
       return (
          <div>
             <Nav brand="Inicio" />
+
+            <HeadTitles title="Usuarios" link="true" linkTo="/users-add" icon="glyphicon glyphicon-plus" />
 
             <table className="table table-hover">
                <thead>
@@ -56,31 +88,28 @@ class Users extends Component {
                      <th>Identificacion</th>
                      <th>Estado</th>
                      <th></th>
+                     <th></th>
                   </tr>
                </thead>
                <tbody>
                   {
-                     usersExample.map((users, index) => (
-                        <tr key={ users.id }>
-                           <th scope="row">{ users.id }</th>
-                           <td>{ users.nombre }</td>
-                           <td>{ users.usuario }</td>
-                           <td>{ users.identificacion }</td>
-                           <td>{ users.estado }</td>
-                           <td className="cursor-default" onClick={ () => this.editUsers(users.id) }><span className="glyphicon glyphicon-edit" aria-hidden="true" data-toggle="modal" data-target="#myModal"></span></td>
+                     this.state.dataListUser.map((users, index) => (
+                        <tr key={ users.ID_USER }>
+                           <th scope="row">{ users.ID_USER }</th>
+                           <td>{ users.NOMBRES } { users.APELLIDOS }</td>
+                           <td>{ users.USUARIO }</td>
+                           <td>{ users.CEDULA }</td>
+                           <td>{ users.ESTADO === '1' ? 'Activo' : 'Inactivo' }</td>
+                           <td className="cursor-default"><Link to={ `/users-edit/${ Base64.encode(users.USUARIO) }/${ Base64.encode(users.ID_USER) }` }><span className="glyphicon glyphicon-edit"></span></Link></td>
+                           <td><a href="" onClick={ this.handleStateUser.bind(this) }>{ users.ESTADO === '1' ? <span id={ users.ID_USER } data-state="0" className="glyphicon glyphicon-thumbs-down"></span> : <span id={ users.ID_USER } data-state="1" className="glyphicon glyphicon-thumbs-up"></span> }</a></td>
                         </tr>
                      ))
                   }
                </tbody>
             </table>
 
-            <button type="button" className="prueba">
-               Launch demo modal
-            </button>
-
-
             {  /*** Importante Redirect, NO QUITAR ***/
-               this.renderRedirectLogin()
+               this.renderRedirect()
             }
          </div>
       );
