@@ -17,6 +17,8 @@ class Add extends Component {
       this.state = { redirect: true, listConceptos: [], saveRegistro: false, alertDisplay: false, alertText: "default" };
    }
 
+   //hola mundo
+
    componentDidMount() {
       var _this = this;
 
